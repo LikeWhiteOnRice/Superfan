@@ -44,15 +44,13 @@ public class RosterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        updateRoster();
-        Log.v(LOG_TAG, "INSIDE ON CREATE");
+        updateRoster();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.v(LOG_TAG, "INSIDE ON CREATE VIEW");
         // Inflate the layout for this fragment
 
         mRosterAdapter = new ArrayAdapter<String>(
@@ -82,7 +80,6 @@ public class RosterFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.v(LOG_TAG, "INSIDE ON START");
 
 //        if (!ROSTER_UPDATED) {
 //            updateRoster();
@@ -135,7 +132,7 @@ public class RosterFragment extends Fragment {
                 pThrows = playerObject.getString(ROS_THROWS);
 
                 if ((i < 40) && (pNumber != null)) {
-                    resultStrs[i] = "#" + pNumber + "  " + pFirstName+ " " + pLastName + "\t\tPos: " + pPosition
+                    resultStrs[i] = "\t#" + pNumber + "  " + pFirstName+ " " + pLastName + "\t\tPos: " + pPosition
                     + "\t\tB/T: " + pBats + "/" + pThrows + "\t\tAge: " + pAge;
                 }
             }
@@ -210,9 +207,8 @@ public class RosterFragment extends Fragment {
 //                if (GZIP.equals(encoding)) {
 //                    inputStream = new GZIPInputStream(inputStream);
 //                }
-                Log.v(LOG_TAG, "AFTER STRINGBUILDER");
                 reader = new BufferedReader(new InputStreamReader(inputStream));
-                Log.v(LOG_TAG, "AFTER BUFFERREADER");
+
                 String line;
                 while ((line = reader.readLine()) != null) {
                     // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
@@ -247,7 +243,6 @@ public class RosterFragment extends Fragment {
                     }
                 }
             }
-            Log.v(LOG_TAG, "TRY TO GET ROSTER DATA");
             try {
                 return getRosterDataFromJson(rosterJsonStr);
             } catch (JSONException e) {
@@ -263,6 +258,10 @@ public class RosterFragment extends Fragment {
                 //clear roster and update
                 mRosterAdapter.clear();
                 mRosterAdapter.addAll(result);
+            }
+            else {
+                mRosterAdapter.clear();
+                mRosterAdapter.add("\t\tNo Internet Connection Detected");
             }
         }
     }
