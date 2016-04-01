@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Seattle Superfan</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_blank_fragment_main">Hello blank fragment main</string>
-    <string name="hello_blank_fragment_roster">Hello blank fragment roster</string>
 
     <string name="nextGame"><u>Next Game:</u></string>
-    <string name="vs">vs.</string>
     <string name="seattleMariners">Seattle Mariners</string>
+    <string name="league">AL West</string>
+    <string name="gamesBack">Games Back</string>
+    <string name="winPercent">Win Percentage</string>
 
 </resources>

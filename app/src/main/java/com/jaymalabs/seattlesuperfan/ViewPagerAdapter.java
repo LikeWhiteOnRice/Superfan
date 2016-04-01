@@ -23,10 +23,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 MainFragment tab1 = new MainFragment();
                 return tab1;
             case 1:
-                RosterFragment tab2 = new RosterFragment();
+                ScheduleFragment tab2 = new ScheduleFragment();
                 return tab2;
             case 2:
-                ScheduleFragment tab3 = new ScheduleFragment();
+                RosterFragment tab3 = new RosterFragment();
                 return tab3;
             case 3:
                 GamedayFragment tab4 = new GamedayFragment();

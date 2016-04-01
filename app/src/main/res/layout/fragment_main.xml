@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Monday, April 4th"
+        android:text=""
         android:id="@+id/tv_gameDate"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/tv_nextGame"/>
@@ -42,14 +42,14 @@
         android:text="@string/seattleMariners"
         android:id="@+id/tv_seattleMariners"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/tv_vs"/>
+        android:layout_above="@+id/tv_location"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/vs"
-        android:id="@+id/tv_vs"
+        android:text=""
+        android:id="@+id/tv_location"
         android:layout_alignWithParentIfMissing="false"
         android:layout_centerInParent="true"
         android:layout_marginTop="5dp"
@@ -59,29 +59,51 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Texan Rangers"
+        android:text=""
         android:id="@+id/tv_opponent"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tv_vs" />
+        android:layout_below="@+id/tv_location" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="F. Hernandez (0-0)"
-        android:id="@+id/tv_pitcherMariners"
+        android:text="@string/league"
+        android:id="@+id/tv_rank"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/tv_pitcherOpponent" />
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/tv_gamesBack" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="C Hamels (0-0)"
-        android:id="@+id/tv_pitcherOpponent"
+        android:text="@string/gamesBack"
+        android:id="@+id/tv_gamesBack"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_above="@+id/tv_winPercent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/winPercent"
+        android:id="@+id/tv_winPercent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_above="@+id/tv_winStreak"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tv_winStreak"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp" />
 
 </RelativeLayout>

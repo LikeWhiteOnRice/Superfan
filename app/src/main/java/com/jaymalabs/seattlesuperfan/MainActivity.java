@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (tabLayout != null) {
             tabLayout.addTab(tabLayout.newTab().setText("Main"));
-            tabLayout.addTab(tabLayout.newTab().setText("Roster"));
             tabLayout.addTab(tabLayout.newTab().setText("Schedule"));
+            tabLayout.addTab(tabLayout.newTab().setText("Roster"));
             tabLayout.addTab(tabLayout.newTab().setText("Gameday"));
 
             tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorMarinersGrey));

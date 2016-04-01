@@ -24,13 +24,29 @@ import java.net.URL;
 
 public class MainFragment extends Fragment {
 
-    private TextView mSeattleMariners;
-    private TextView mOpponent;
+    private TextView tvSeattleMariners;
+    private TextView tvOpponent;
+    private TextView tvGameDate;
+    private TextView tvLocation;
+    private TextView tvRank;
+    private TextView tvGamesBack;
+    private TextView tvWinPercent;
+    private TextView tvWinStreak;
 
-    private String teamWon;
-    private String teamLost;
-    private String oppWon;
-    private String oppLost;
+    private String mTeamWon;
+    private String mTeamLost;
+    private String mOppWon;
+    private String mOppLost;
+    private String mOppFirstName;
+    private String mOppLastName;
+    private String mLocation;
+    private String mEventDate;
+
+    private String mTeamRank;
+    private String mTeamGamesBack;
+    private String mTeamWinPercentage;
+    private String mTeamStreakType;
+
 
     public MainFragment() {
         // Required empty public constructor
@@ -39,8 +55,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -67,15 +81,28 @@ public class MainFragment extends Fragment {
         super.onStart();
 
         if (getView() != null) {
-            mSeattleMariners = (TextView) getView().findViewById(R.id.tv_seattleMariners);
-            mOpponent = (TextView) getView().findViewById(R.id.tv_opponent);
+            tvSeattleMariners = (TextView) getView().findViewById(R.id.tv_seattleMariners);
+            tvOpponent = (TextView) getView().findViewById(R.id.tv_opponent);
+            tvGameDate = (TextView) getView().findViewById(R.id.tv_gameDate);
+            tvLocation = (TextView) getView().findViewById(R.id.tv_location);
+            tvRank = (TextView) getView().findViewById(R.id.tv_rank);
+            tvGamesBack = (TextView) getView().findViewById(R.id.tv_gamesBack);
+            tvWinPercent = (TextView) getView().findViewById(R.id.tv_winPercent);
+            tvWinStreak = (TextView) getView().findViewById(R.id.tv_winStreak);
         }
 
         updateTeamData();
     }
 
-    public void setTeamData(String teamWon, String teamLost) {
-//        mSeattleMariners.append("  (" + teamWon + "-" + teamLost + ")");
+    public void getGameData() {
+        mTeamWon = ScheduleFragment.getTeamWins();
+        mTeamLost = ScheduleFragment.getTeamLost();
+        mOppWon = ScheduleFragment.getOppWins();
+        mOppLost = ScheduleFragment.getOppLost();
+        mOppFirstName = ScheduleFragment.getOppFirstName();
+        mOppLastName = ScheduleFragment.getOppLastName();
+        mLocation = ScheduleFragment.getLocation();
+        mEventDate = ScheduleFragment.getDate();
     }
 
 
@@ -89,53 +116,51 @@ public class MainFragment extends Fragment {
             // These are the names of the JSON objects that need to be extracted.
             final String TEAM_ARRAY = "standing";
             final String TEAM_ID = "team_id";
-            final String TEAM_WON = "won";
-            final String TEAM_LOST = "lost";
-            final String OPP_FIRST_NAME = "first_name";
-            final String OPP_LAST_NAME = "last_name";
-            final String OPP_WON = "won";
-            final String OPP_LOST = "lost";
-
+            final String TEAM_RANK = "ordinal_rank";
+            final String TEAM_GAMES_BACK = "games_back";
+            final String TEAM_WIN_PERCENTAGE = "win_percentage";
+            final String TEAM_STREAK_TYPE = "streak_type";
+            final String TEAM_STREAK_TOTAL = "streak_total";
             final String MARINERS_ID = "seattle-mariners";
+
+            double tGamesBack = 999;
+            int tStreakTotal = -1;
 
             JSONObject teamJson = new JSONObject(teamJsonStr);
             JSONArray teamArray = teamJson.getJSONArray(TEAM_ARRAY);
 
-//            String teamWon = "0";
-//            String teamLost = "0";
-            String oppFirstName = "Unavailable";
-            String oppLastNam = "";
-//            String oppWon = "0";
-//            String oppLost = "0";
-
-            String[] resultStrs = new String[teamArray.length()];
             for (int i = 0; i < teamArray.length(); i++) {
-                // For now, using the format "Day, description, hi/low"
 
-
-                // Get the JSON object representing the player
+                // Get the JSON object representing the team
                 JSONObject teamObject = teamArray.getJSONObject(i);
 
                 if (teamObject.getString(TEAM_ID).equals(MARINERS_ID)) {
-                    teamWon = teamObject.getString(TEAM_WON);
-                    teamLost = teamObject.getString(TEAM_LOST);
-                    Log.v(LOG_TAG, "FOUND MARINERS");
+                    mTeamRank = teamObject.getString(TEAM_RANK);
+                    tGamesBack = teamObject.getDouble(TEAM_GAMES_BACK);
+                    mTeamWinPercentage = teamObject.getString(TEAM_WIN_PERCENTAGE);
+                    mTeamStreakType = teamObject.getString(TEAM_STREAK_TYPE);
+                    tStreakTotal = teamObject.getInt(TEAM_STREAK_TOTAL);
                 }
+            }
 
-                if (teamObject.getString(TEAM_ID).equals("texas-rangers")) {
-                    oppWon = teamObject.getString(OPP_WON);
-                    oppLost = teamObject.getString(OPP_LOST);
-                }
+            if (mTeamStreakType.equals("win")) {
+                mTeamStreakType = tStreakTotal + " Game Winning Streak";
+            }
+//            else if (mTeamStreakType.equals("win") && tStreakTotal == 1) {
+//                mTeamStreakType = tStreakTotal + " Game Win Streak";
+//            }
+            else if (mTeamStreakType.equals("loss")) {
+                mTeamStreakType = tStreakTotal + " Game Losing Streak";
+            }
+//            else if (mTeamStreakType.equals("loss") && tStreakTotal == 1) {
+//                mTeamStreakType = tStreakTotal + " Game Loss Streak";
+//            }
 
-//                oppFirstName = teamObject.getString(OPP_FIRST_NAME);
-//                oppLastName = teamObject.getString(OPP_LAST_NAME);
-
+            if (tGamesBack != 999) {
+                mTeamGamesBack = String.valueOf(tGamesBack);
             }
 
             Log.v(LOG_TAG, "MARINERS APPEND");
-//            setTeamData(teamWon, teamLost);
-
-
 
         }
 
@@ -220,7 +245,7 @@ public class MainFragment extends Fragment {
                 }
 
                 teamJsonStr = buffer.toString();
-                Log.v(LOG_TAG, "Roster JSON String: " + teamJsonStr);
+                Log.v(LOG_TAG, "Standings JSON String: " + teamJsonStr);
 
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error In FetchRoster", e);
@@ -249,9 +274,18 @@ public class MainFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String[] result) {
-            if (result != null) {
-                mSeattleMariners.append("  (" + teamWon + "-" + teamLost + ")");
-                mOpponent.append("  (" + oppWon + "-" + oppLost + ")");
+
+            getGameData();
+
+            if (mEventDate != null) {
+                tvGameDate.setText(mEventDate);
+                tvSeattleMariners.append("  (" + mTeamWon + "-" + mTeamLost + ")");
+                tvLocation.setText(mLocation);
+                tvOpponent.setText(mOppFirstName + " " + mOppLastName + "  (" + mOppWon + "-" + mOppLost + ")");
+                tvRank.setText(mTeamRank + " in the " + tvRank.getText());
+                tvGamesBack.setText(mTeamGamesBack + " " + tvGamesBack.getText());
+                tvWinPercent.setText(mTeamWinPercentage + " " + tvWinPercent.getText());
+                tvWinStreak.setText(mTeamStreakType);
             }
         }
     }

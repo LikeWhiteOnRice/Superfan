@@ -4,10 +4,9 @@
     android:layout_height="match_parent"
     tools:context="com.jaymalabs.seattlesuperfan.RosterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/listview_schedule"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment_roster" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
